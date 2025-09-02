@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Universidad</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+</head>
+<body
+        class="min-h-screen w-screen text-white"
+        th:style="'background-image: url(' + @{/images/estudiantes1.jpg} + ');
+         background-size: cover;
+         background-position: center;
+         backdrop-filter: blur(3px);'">
+
+<!-- Header del layout -->
+<header th:replace="~{layout/layout :: header}"></header>
+
+<!-- Carrusel -->
+<div class="flex justify-center items-center h-[85vh]">
+    <div class="swiper miSwiper w-[90%] max-w-6xl rounded-xl shadow-lg">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                <img src="/images/startUp8.jpg" alt="empresa1" class="w-full h-64 object-cover rounded-xl" />
+            </div>
+            <div class="swiper-slide">
+                <img src="/images/startUp9.png" alt="empresa5" class="w-full h-64 object-cover rounded-xl" />
+            </div>
+            <div class="swiper-slide">
+                <img src="/images/startUp4.jpg" alt="empresa4" class="w-full h-64 object-cover rounded-xl" />
+            </div>
+            <div class="swiper-slide">
+                <img src="/images/startUp2.jpg" alt="empresa2" class="w-full h-64 object-cover rounded-xl" />
+            </div>
+            <div class="swiper-slide">
+                <img src="/images/startUp3.jpg" alt="empresa3" class="w-full h-64 object-cover rounded-xl" />
+            </div>
+
+
+        </div>
+
+        <!-- Botones de navegación -->
+        <div class="swiper-button-prev text-amber-500 hover:text-white hover:bg-amber-500 rounded-full p-2"></div>
+        <div class="swiper-button-next text-amber-500 hover:text-white hover:bg-amber-500 rounded-full p-2"></div>
+
+        <!-- Paginación -->
+        <div class="swiper-pagination mt-4"></div>
+    </div>
+</div>
+
+<!-- Texto informativo debajo del carrusel -->
+<section class="bg-cyan-400 bg-opacity-90 text-black p-8 rounded-xl mx-auto mt-6 max-w-4xl shadow-lg mb-10">
+    <h2 class="text-center text-lg font-semibold mb-4">
+        La plataforma donde tus ideas se convierten en STARTUPS
+    </h2>
+
+    <p class="text-center mb-6">
+        <strong>Bienvenido al Sistema de Gestión de Startups Universitarias</strong><br />
+        Este sistema está diseñado para apoyar a los emprendedores de la comunidad universitaria, brindando un espacio
+        donde puedan registrar sus ideas, postular a convocatorias activas y hacer seguimiento a sus propuestas.<br />
+        Aquí se promueve la innovación, el desarrollo de proyectos y la creación de soluciones que impacten positivamente en la sociedad.
+    </p>
+
+    <div class="mb-6">
+        <p class="mb-4">
+            <strong>¿Sabías qué grandes empresas comenzaron como startups?</strong><br />
+            Empresas como:
+        </p>
+        <ul class="list-disc list-inside space-y-2">
+            <li><strong>Uber</strong> – comenzó como una simple idea para pedir transporte desde una app.</li>
+            <li><strong>Airbnb</strong> – nació cuando dos amigos alquilaron colchones inflables en su sala.</li>
+            <li><strong>Rappi</strong> – una solución local que creció para transformar la entrega a domicilio en Latinoamérica.</li>
+            <li><strong>Glovo, Cabify, Notion</strong>… ¡Todas fueron pequeños proyectos al inicio!</li>
+        </ul>
+    </div>
+
+    <p class="text-center text-lg font-bold mb-2">Tú también puedes crear algo grande.</p>
+    <p class="text-center">
+        Este sistema es parte del compromiso universitario con el desarrollo emprendedor, impulsando ideas desde las aulas hacia el mundo real.
+    </p>
+</section>
+
+<!-- Swiper JS -->
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+<!-- Inicializar Swiper -->
+<script>
+    const swiper = new Swiper(".miSwiper", {
+        slidesPerView: 1,
+        spaceBetween: 20,
+        loop: true,
+        pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+        },
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        },
+        breakpoints: {
+            768: {
+                slidesPerView: 2,
+            },
+            1024: {
+                slidesPerView: 3,
+            },
+        },
+    });
+</script>
+</body>
+</html>

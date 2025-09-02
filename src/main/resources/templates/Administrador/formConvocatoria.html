@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/layout4::head}"></head>
+<body class="m-0 p-0 font-sans bg-[url('/images/estudiantes1.jpg')] bg-cover bg-center bg-fixed">
+<header th:replace="~{layout/layout4::header}"></header>
+<div class="max-w-md mx-auto mt-24 mb-12 bg-white/90 rounded-xl p-8 shadow-2xl">
+  <h1 class="text-center text-2xl font-bold text-gray-800 mb-4"
+      th:text="${convocatoria.idConvocatorias} == null ? 'Crear Nueva Convocatoria' : 'Editar Convocatoria'">
+
+  </h1>
+
+  <form th:action="@{/crearConvocatoria}" method="post" th:object="${convocatoria}">
+    <div class="flex flex-col gap-4">
+
+      <label for="titulo" class="text-stone-900 font-bold">Título</label>
+      <input id="titulo" name="titulo" type="text" maxlength="40" th:field="*{titulo}" required
+             class="p-2 rounded-md border border-gray-300"/>
+
+      <label for="fechaIni" class="text-stone-900 font-bold">Fecha de Inicio</label>
+      <input id="fechaIni" name="fechaIni" type="date" th:field="*{fechaIni}" required
+             class="p-2 rounded-md border border-gray-300"/>
+
+      <label for="fechaFin" class="text-stone-900 font-bold">Fecha de Fin</label>
+      <input id="fechaFin" name="fechaFin" type="date" th:field="*{fechaFin}" required
+             class="p-2 rounded-md border border-gray-300"/>
+
+      <button type="submit"
+              class="bg-amber-600 text-white py-3 px-4 rounded-md font-bold hover:opacity-70 transition-all">
+        Guardar Convocatoria
+      </button>
+    </div>
+  </form>
+</div>
+</body>
+</html>

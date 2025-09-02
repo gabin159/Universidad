@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/layout2 :: head}">
+<body class ="bg-stone-800 min-h-screen w-screen flex flex-col mb-22"
+      th:style="'background-image: url('+@{/images/estudaintes1.jpg}+');
+    background-size: cover; background-position: center;
+     backdrop-filter:blur(3px)'">
+<header th:replace="~{layout/layout2 :: header}"></header>
+<section class ="bg-stone-200 text-stone-900 py-5 mt-20 rounded-lg
+px-10 ml-2 mr mb-10">
+    <!-- Misión, Visión y Nuestro Equipo -->
+    <section class="py-6 px-4 md:px-10 bg-green-100 rounded-lg shadow-md text-stone-900 mb-8">
+        <div class="mb-6">
+            <h2 class="text-xl font-bold mb-2 flex items-center"><span class="mr-2"></span> Misión</h2>
+            <p>
+                Nuestra misión es brindar a estudiantes, jóvenes emprendedores y pequeños innovadores una plataforma digital confiable, intuitiva y dinámica donde puedan registrar, visibilizar y postular sus ideas de negocio a convocatorias reales.
+                Buscamos fomentar una cultura de emprendimiento dentro del ámbito académico, promoviendo la creación de soluciones creativas a problemas actuales, y brindando el acompañamiento necesario para que estas ideas se conviertan en startups sostenibles que generen impacto social, económico y tecnológico.
+            </p>
+        </div>
+
+        <div class="mb-6">
+            <h2 class="text-xl font-bold mb-2 flex items-center"><span class="mr-2"></span> Visión</h2>
+            <p>
+                Nuestra visión es convertirnos en la plataforma universitaria de referencia para el impulso y consolidación de emprendimientos emergentes en América Latina.
+                Aspiramos a construir un ecosistema digital donde cada estudiante con una idea brillante tenga acceso a herramientas, espacios de participación, y conexiones estratégicas que le permitan transformar su visión en una empresa real.
+                En el futuro, visualizamos una comunidad activa de emprendedores formados desde la universidad, capaces de liderar el cambio y enfrentar los retos del mundo con creatividad, compromiso y responsabilidad.
+            </p>
+        </div>
+
+        <div>
+            <h2 class="text-xl font-bold mb-2 flex items-center"><span class="mr-2"></span> Nuestro Equipo</h2>
+            <p>
+                En nuestra plataforma, no solo impulsamos ideas, también formamos comunidad.
+                Contamos con un equipo de profesores universitarios especializados que acompañan, guían y monitorean a los emprendedores durante todo el proceso.
+                Ellos actúan como mentores y asesores académicos, asegurando que cada proyecto tenga una base sólida, un enfoque ético, y una proyección real al mercado.
+                Además, colaboran en la evaluación de las convocatorias, la revisión de propuestas y la formación de los estudiantes emprendedores, brindando herramientas y conocimientos clave para el éxito de sus startups.
+            </p>
+        </div>
+    </section>
+
+    <div class="h-1 bg-slate-800 shadow-md rounded-full my-10 w-3/4 mx-auto">
+<!-- parte de locacion-->
+    </div>
+    <section class="py-4 px-6 md:px-20">
+        <div class="grid md:grid-cols-3 gap-6 items-start justify-items-center text-center">
+            <div class="w-full">
+                <h2 class="text-2xl font-bold mb-4 text-stone-800">Location & Contact</h2>
+                <div class="space-y-2 text-stone-800">
+                    <p><strong>Address:</strong> Calle 19 No. 11 – 48, Tunja - Boyaca</p>
+                    <p><strong>Phone:</strong> +57 3107858033</p>
+                    <p><strong>Email:</strong> startUp@universidad.edu.co</p>
+                    <p class="mt-2 flex justify-center gap-4 text-2xl">
+                        <a href="#" class="text-blue-600 hover:text-blue-800"><i class="fab fa-facebook-square"></i></a>
+                        <a href="#" class="text-pink-600 hover:text-pink-800"><i class="fab fa-instagram"></i></a>
+                        <a href="https://wa.me/573107858033" class="text-green-600 hover:text-green-800"><i class="fab fa-whatsapp"></i></a>
+                    </p>
+                </div>
+            </div>
+
+            <!-- mapa -->
+            <div class="hidden md:block"></div>
+
+            <div class="w-full">
+                <h2 class="text-2xl font-bold mb-4 text-stone-800">Find Us</h2>
+                <div class="rounded-lg overflow-hidden shadow-lg border border-stone-300">
+                    <iframe class="w-full h-52"
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2742.153203163004!2d-73.34469480110144!3d5.549535835180281!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e6a7c6a716aee77%3A0x222341ee842c5b89!2sUniversidad%20Santo%20Tom%C3%A1s%20-%20Seccional%20Tunja%20%7C%20Campus%20Avenida%20Universitaria!5e0!3m2!1ses!2sco!4v1745454734421!5m2!1ses!2sco"
+                            allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</section>
+<footer th:replace="~{layout/layout :: footer}"></footer>
+</body>
+
+</html>

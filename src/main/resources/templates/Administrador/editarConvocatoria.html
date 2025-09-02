@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/layout4 :: head}"></head>
+<body class="m-0 p-0 font-sans bg-[url('/images/estudiantes1.jpg')]
+        bg-cover bg-center bg-fixed">
+
+<header th:replace="~{layout/layout4 :: header}"></header>
+
+<div class="max-w-md mx-auto mt-24 mb-12 bg-white/90 rounded-xl p-8 shadow-2xl">
+
+  <h1 class="text-center text-2xl font-bold text-gray-800 mb-4">Editar Convocatoria</h1>
+
+  <form th:action="@{/modificar/{id}(id=${convocatoriaEdit.idConvocatorias})}"
+        method="post" th:object="${convocatoriaEdit}">
+
+    <div class="flex flex-col gap-4">
+
+      <!-- Título -->
+      <label class="text-stone-900 font-bold" for="titulo">Título:</label>
+      <input type="text" id="titulo" name="titulo" th:field="*{titulo}" maxlength="40" required
+             class="p-2 rounded-md border border-gray-300"/>
+
+      <!-- Fecha Inicio -->
+      <label class="text-stone-900 font-bold" for="fechaIni">Fecha de Inicio:</label>
+      <input type="date" id="fechaIni" name="fechaIni" th:field="*{fechaIni}" required
+             class="p-2 rounded-md border border-gray-300"/>
+
+      <!-- Fecha Fin -->
+      <label class="text-stone-900 font-bold" for="fechaFin">Fecha de Fin:</label>
+      <input type="date" id="fechaFin" name="fechaFin" th:field="*{fechaFin}" required
+             class="p-2 rounded-md border border-gray-300"/>
+
+      <!-- Mensaje de error para fechas -->
+      <p id="fecha-error" class="text-red-600 text-sm mt-1 hidden">
+        La fecha de fin debe ser igual o posterior a la fecha de inicio.
+      </p>
+
+      <!-- Botón Guardar -->
+      <button type="submit"
+              class="bg-amber-600 text-white py-3 px-4 rounded-md font-bold
+                 hover:opacity-70 transition-all">
+        Guardar Convocatoria
+      </button>
+
+    </div>
+
+  </form>
+
+</div>
+
+<script>
+  // Validar que la fecha fin sea igual o posterior a fecha inicio
+  const fechaIniInput = document.getElementById('fechaIni');
+  const fechaFinInput = document.getElementById('fechaFin');
+  const fechaError = document.getElementById('fecha-error');
+
+  function validarFechas() {
+    const fechaIni = new Date(fechaIniInput.value);
+    const fechaFin = new Date(fechaFinInput.value);
+    if (fechaFin < fechaIni) {
+      fechaError.classList.remove('hidden');
+      return false;
+    } else {
+      fechaError.classList.add('hidden');
+      return true;
+    }
+  }
+
+  fechaIniInput.addEventListener('change', validarFechas);
+  fechaFinInput.addEventListener('change', validarFechas);
+
+  // Validar al enviar el formulario
+  const form = document.querySelector('form');
+  form.addEventListener('submit', function(event) {
+    if (!validarFechas()) {
+      event.preventDefault();
+    }
+  });
+</script>
+
+</body>
+</html>

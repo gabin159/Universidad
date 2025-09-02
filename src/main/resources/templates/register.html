@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{layout/layout11 :: head}"></head>
+
+<body class="bg-[url('/images/estudiantes1.jpg')] bg-cover bg-fixed bg-center m-0 p-0 font-sans">
+<header th:replace="~{layout/layout11 :: header}"></header>
+
+<div class="max-w-md mx-auto mt-24 mb-12 bg-white/90 rounded-xl p-8 shadow-2xl">
+    <h1 class="text-center text-2xl font-bold text-gray-800 mb-6">[[${title}]]</h1>
+
+    <form th:action="@{/register}" th:object="${usuario}" method="post" class="flex flex-col gap-6">
+
+        <!-- EMAIL -->
+        <div class="flex flex-col">
+            <label for="email" class="text-stone-900 font-bold mb-1">Email:</label>
+            <input type="email"
+                   id="email"
+                   th:field="*{email}"
+                   placeholder="Enter your email"
+                   required
+                   class="p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-amber-400" />
+        </div>
+
+        <!-- PASSWORD -->
+        <div class="flex flex-col relative">
+            <label for="clave" class="text-stone-900 font-bold mb-1">Password:</label>
+            <input type="password"
+                   id="clave"
+                   th:field="*{clave}"
+                   placeholder="Enter your password"
+                   required
+                   class="p-2 rounded-md border border-gray-300 pr-10 focus:outline-none focus:ring-2 focus:ring-amber-400" />
+            <button type="button" onclick="togglePassword('clave', this)" class="absolute right-3 top-10 text-gray-600">
+                <i class="fa-solid fa-eye"></i>
+            </button>
+        </div>
+
+        <!-- CONFIRM PASSWORD -->
+        <div class="flex flex-col relative">
+            <label for="confirmarClave" class="text-stone-900 font-bold mb-1">Confirm password:</label>
+            <input type="password"
+                   id="confirmarClave"
+                   name="confirmarClave"
+                   placeholder="Re-enter your password"
+                   required
+                   class="p-2 rounded-md border border-gray-300 pr-10 focus:outline-none focus:ring-2 focus:ring-amber-400" />
+            <button type="button" onclick="togglePassword('confirmarClave', this)" class="absolute right-3 top-10 text-gray-600">
+                <i class="fa-solid fa-eye"></i>
+            </button>
+        </div>
+
+        <!-- NOMBRE -->
+        <div class="flex flex-col">
+            <label for="nombreUsuario" class="text-stone-900 font-bold mb-1">First name:</label>
+            <input type="text"
+                   id="nombreUsuario"
+                   th:field="*{nombreUsuario}"
+                   placeholder="Enter your first name"
+                   required
+                   class="p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-amber-400" />
+        </div>
+
+        <!-- APELLIDO -->
+        <div class="flex flex-col">
+            <label for="apellidoUsuario" class="text-stone-900 font-bold mb-1">Last name:</label>
+            <input type="text"
+                   id="apellidoUsuario"
+                   th:field="*{apellidoUsuario}"
+                   placeholder="Enter your last name"
+                   required
+                   class="p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-amber-400" />
+        </div>
+
+        <!-- OCUPACION -->
+        <div class="flex flex-col">
+            <label for="ocupacion" class="text-stone-900 font-bold mb-1">Occupation:</label>
+            <input type="text"
+                   id="ocupacion"
+                   th:field="*{ocupacion}"
+                   placeholder="Enter your occupation"
+                   required
+                   class="p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-amber-400" />
+        </div>
+
+        <!-- TELEFONO -->
+        <div class="flex flex-col">
+            <label for="telefono" class="text-stone-900 font-bold mb-1">Phone:</label>
+            <input type="text"
+                   id="telefono"
+                   th:field="*{telefono}"
+                   placeholder="Enter your phone number"
+                   required
+                   class="p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-amber-400" />
+        </div>
+
+        <!-- CIUDAD -->
+        <div class="flex flex-col">
+            <label for="ciudad" class="text-stone-900 font-bold mb-1">City:</label>
+            <input type="text"
+                   id="ciudad"
+                   th:field="*{ciudad}"
+                   placeholder="Enter your city"
+                   required
+                   class="p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-amber-400" />
+        </div>
+
+        <!-- SUBMIT -->
+        <button type="submit"
+                class="bg-amber-600 text-white py-3 px-4 rounded-md font-bold hover:opacity-75 transition-all">
+            REGISTER
+        </button>
+    </form>
+</div>
+
+
+<script>
+    function togglePassword(inputId, button) {
+        const input = document.getElementById(inputId);
+        const icon = button.querySelector('i');
+        const isPassword = input.type === 'password';
+        input.type = isPassword ? 'text' : 'password';
+        icon.classList.toggle('fa-eye', !isPassword);
+        icon.classList.toggle('fa-eye-slash', isPassword);
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const form = document.querySelector("form");
+        const password = document.getElementById("clave");
+        const confirmPassword = document.getElementById("confirmarClave");
+
+        form.addEventListener("submit", function (e) {
+            if (password.value !== confirmPassword.value) {
+                e.preventDefault();
+                mostrarError("Passwords do not match.");
+            }
+        });
+    });
+
+    function mostrarError(mensaje) {
+        let errorDiv = document.getElementById("clave-error");
+        if (!errorDiv) {
+            errorDiv = document.createElement("div");
+            errorDiv.id = "clave-error";
+            errorDiv.className = "text-red-600 text-sm mt-1";
+            const passwordField = document.getElementById("confirmarClave");
+            passwordField.parentNode.appendChild(errorDiv);
+        }
+        errorDiv.innerText = mensaje;
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/layout3 :: head}"></head>
+<body class="bg-stone-900 text-stone-100 flex flex-col items-center min-h-screen w-screen">
+<header th:replace="~{layout/layout3 :: header}"></header>
+<div th:replace="~{layout/layout3 :: nuevo}"></div>
+
+
+<div class="w-screen min-h-screen flex flex-col items-center pt-32 px-6">
+    <h1 class="text-4xl font-bold text-yellow-100 mb-6 font-['Poppins']">[[${title}]]</h1>
+
+    <section class="w-full grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-all"
+             th:each=" convocatoria : ${Convocatorias}">
+
+            <div class="p-6">
+                <p class="text-lg font-bold text-gray-800">
+                    Convocatoria N°: [[${convocatoria.idConvocatorias}]]
+                </p>
+                <h2 class="text-2xl font-semibold text-stone-800">[[${convocatoria.titulo}]]</h2>
+                <p class="text-sm text-gray-800">
+                    Fecha de inicio:
+                    <span th:text="${#dates.format(convocatoria.fechaIni, 'dd/MM/yyyy')}"></span>
+                </p>
+
+                <p class="text-sm text-gray-800">
+                    Fecha de fin:
+                    <span th:text="${#dates.format(convocatoria.fechaFin, 'dd/MM/yyyy')}"></span>
+                </p>
+
+                <div class="mt-4 flex gap-2">
+                    <a th:href="@{/modificar/{id}(id=${convocatoria.idConvocatorias})}"
+                       class="flex-1 bg-amber-700 text-white text-center py-2 rounded-lg hover:bg-amber-500 transition-all">
+                        Edit
+                    </a>
+                    <form th:action="@{/eliminarConvocatoria/{id}(id=${convocatoria.idConvocatorias})}"
+                          method="post" onsubmit="return confirmarEliminacion(event, this);">
+                        <button type="submit"
+                                class="bg-red-800 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition-all">
+                            Delete
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- Toast de Éxito -->
+<div id="toast-exito"
+     class="fixed top-5 left-1/2 -translate-x-1/2 bg-green-600 text-white px-6 py-3 rounded-xl
+            shadow-xl transition-opacity duration-300 opacity-0 z-50 text-lg font-semibold"
+     th:if="${mensajeExito}"
+     th:text="${mensajeExito}">
+</div>
+
+<script>
+    window.addEventListener("DOMContentLoaded", function () {
+        const toast = document.getElementById("toast-exito");
+        if (toast) {
+            toast.classList.remove("opacity-0");
+            toast.classList.add("opacity-100");
+            setTimeout(() => {
+                toast.classList.remove("opacity-100");
+                toast.classList.add("opacity-0");
+            }, 3000);
+        }
+
+        const successMessage = "[[${success}]]";
+        if (successMessage && successMessage !== "null" && successMessage.trim() !== "") {
+            Swal.fire({
+                icon: "success",
+                title: "Success",
+                text: successMessage
+            });
+        }
+
+        const errorMessage = "[[${error}]]";
+        if (errorMessage && errorMessage !== "null" && errorMessage.trim() !== "") {
+            Swal.fire({
+                icon: "error",
+                title: "Error",
+                text: errorMessage
+            });
+        }
+    });
+
+    function confirmarEliminacion(event, form) {
+        event.preventDefault();
+        Swal.fire({
+            title: "Are you sure?",
+            text: "This action cannot be undone",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#991b1b",
+            cancelButtonColor: "#f59e0b",
+            confirmButtonText: "Yes, delete",
+            cancelButtonText: "Cancel"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                form.submit();
+            }
+        });
+    }
+</script>
+
+<footer class="mt-10" th:replace="~{layout/layout :: footer}"></footer>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</body>
+</html>

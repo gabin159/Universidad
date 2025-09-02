@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:fragment="head">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>[[${title}]]</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+</head>
+
+<body class="bg-amber-800 text-white w-screen flex justify-center items-center"
+      th:style="'background-image: url('+@{/images/estudiantes1.jpg}+'); background-size: cover; background-position: center; backdrop-filter: blur(3px);'">
+
+<header th:fragment="header">
+    <nav
+            class="absolute top-0 left-0 right-0 flex justify-between items-center bg-white/10 py-4 px-4 sm:px-20 w-screen h-[70px] backdrop-blur-lg shadow-md">
+        <div class="flex items-center">
+            <a th:href="@{/}" class="block transition-all hover:scale-105">
+                <img src="/images/logoUsta.png" alt="Logo" class="h-12 w-auto" />
+            </a>
+
+        </div>
+        <ul class="flex gap-8 text-lg font-medium items-center">
+            <li class="hover:text-gray-300 hover:underline transition-all
+                underline-offset-4">
+                <a th:href="@{/Usuarios}">USUARIOS</a>
+            </li>
+
+        </ul>
+        <ul class="flex gap-6 items-center font-medium">
+            <li class="border border-white text-white px-4 py-2 rounded-lg
+                       hover:bg-white hover:text-gray-800 transition-all
+                       hover:scale-105 hover:ring-2 hover:ring-white"
+                sec:authorize="isAnonymous()">
+                <a th:href="@{/register}">Sign Up</a>
+            </li>
+
+            <li class="border border-white text-white px-4 py-2 rounded-lg
+                       hover:bg-white hover:text-gray-800 transition-all
+                       hover:scale-105 hover:ring-2 hover:ring-white"
+                sec:authorize="isAnonymous()">
+                <a th:href="@{/login}">Sign In</a>
+            </li>
+
+            <li class="border border-white text-white px-4 py-2 rounded-lg
+                       hover:bg-white hover:text-gray-800 transition-all
+                       hover:scale-105 hover:ring-2 hover:ring-white"
+                sec:authorize="isAuthenticated()">
+                <form th:action="@{/logout}" method="post">
+                    <a class="nav-link" onclick="this.parentNode.submit();" href="#">Log Out</a>
+                </form>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+<!-- Crear un nuevo registro - fragmento 1 -->
+<div th:fragment="nuevo"
+     class="absolute top-[70px] left-0 right-0 flex justify-between bg-yellow-500 py-4 px-4 sm:px-20 w-screen h-[50px]">
+    <ul class="w-full flex justify-end items-center">
+        <li
+                class="flex gap-4 p-2 border border-white rounded-xl hover:bg-white hover:text-cyan-950 text-sm active:scale-105 transition-all">
+            <a th:href="@{${UrlRegisterStartup}}">Add New Startup</a>
+        </li>
+    </ul>
+</div>
+
+<!-- Crear un nuevo registro - fragmento 2 -->
+<div th:fragment="nuevo2"
+     class="absolute top-[70px] w-full h-[50px] px-6 flex justify-end items-center">
+    <a th:href="@{${urlRegistro}}"
+       class="bg-amber-600 text-white px-4 py-2 rounded-xl text-sm hover:bg-white hover:text-amber-900 border-amber-600 transition-all active:scale-105 font-bold">
+        Add New Record
+    </a>
+</div>
+
+</body>
+
+</html>

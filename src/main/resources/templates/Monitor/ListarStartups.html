@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/layout10:: head}"></head>
+<body class="bg-stone-900 text-stone-100 flex flex-col items-center min-h-screen w-screen">
+
+<header th:replace="~{layout/layout10 :: header}"></header>
+
+<div class="w-full max-w-6xl pt-32 px-6">
+    <h1 class="text-4xl font-bold text-yellow-100 mb-8 font-['Poppins'] text-center">
+        [[${title}]]
+    </h1>
+
+    <div class="overflow-x-auto">
+        <table class="min-w-full bg-stone-800 rounded-lg shadow-lg overflow-hidden text-stone-100">
+            <thead class="bg-blue-700 text-white">
+            <tr>
+                <th class="px-6 py-3 text-left font-semibold">LOGO</th>
+                <th class="px-6 py-3 text-left font-semibold">NOMBRE</th>
+                <th class="px-6 py-3 text-left font-semibold">SECTOR</th>
+                <th class="px-6 py-3 text-left font-semibold">DESCRIPCIÓN</th>
+                <th class="px-6 py-3 text-left font-semibold">USUARIO</th>
+                <th class="px-6 py-3 text-left font-semibold">CONVOCATORIA</th>
+                <th class="px-6 py-3 text-center font-semibold">ACCIONES</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="startup, iter : ${startups}" class="border-b border-stone-700 hover:bg-stone-700">
+                <td class="px-6 py-4">
+                    <img th:src="@{${startup.logo}}" alt="Logo" class="w-16 h-16 object-cover rounded">
+                </td>
+                <td class="px-6 py-4" th:text="${startup.nombre}">Nombre</td>
+                <td class="px-6 py-4" th:text="${startup.sector}">Tecnología</td>
+                <td class="px-6 py-4" th:text="${startup.descripcion}">Descripción</td>
+                <td class="px-6 py-4" th:text="${startup.usuario.nombreUsuario + ' ' + startup.usuario.apellidoUsuario}">Usuario</td>
+
+                <!-- Texto clickeable -->
+                <td class="px-6 py-4">
+                    <span th:attr="onclick='toggleCheck(' + ${iter.index} + ')'" class="cursor-pointer hover:text-yellow-300" th:text="${startup.convocatoria.titulo}">
+                        Convocatoria X
+                    </span>
+                </td>
+
+                <!-- Chulito que aparece/desaparece -->
+                <td class="px-6 py-4 text-center">
+                    <span th:attr="id='check-' + ${iter.index}" class="hidden text-green-400 text-2xl">✔️</span>
+                </td>
+            </tr>
+
+            <tr th:if="${#lists.isEmpty(startups)}">
+                <td colspan="7" class="px-6 py-6 text-center text-stone-400 italic">
+                    No hay startups registradas.
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<footer class="mt-10" th:replace="~{layout/layout :: footer}"></footer>
+
+<!-- Script para mostrar/ocultar ✔️ -->
+<script>
+    function toggleCheck(index) {
+        const chulo = document.getElementById("check-" + index);
+        chulo.classList.toggle("hidden");
+    }
+</script>
+
+</body>
+</html>

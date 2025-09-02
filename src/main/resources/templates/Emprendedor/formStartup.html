@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/layout6::head}"></head>
+<body class="m-0 p-0 font-sans bg-[url('/images/estudiantes1.jpg')] bg-cover bg-center bg-fixed">
+<header th:replace="~{layout/layout6::header}"></header>
+
+<div class="max-w-md mx-auto mt-24 mb-12 bg-white/90 rounded-xl p-8 shadow-2xl">
+    <h1 class="text-center text-2xl font-bold text-gray-800 mb-4">Register New Startup</h1>
+
+    <form th:action="@{/crearStartup}" method="post" enctype="multipart/form-data" th:object="${startup}">
+        <div class="flex flex-col gap-4">
+
+            <!-- Lista de Usuarios -->
+            <label for="usuario" class="text-stone-900 font-bold">Select User</label>
+            <select id="usuario" name="usuario" th:field="*{usuario}" required class="p-2 rounded-md border border-gray-300">
+                <option value="">-- Select User --</option>
+                <option th:each="user : ${listaUsuario}" th:value="${user.idUsuario}" th:text="${user.nombreUsuario +' '+ user.apellidoUsuario}"></option>
+            </select>
+
+            <!-- Lista de Convocatorias -->
+            <label for="convocatoria" class="text-stone-900 font-bold">Select Call</label>
+            <select id="convocatoria" name="convocatoria" th:field="*{convocatoria}" required class="p-2 rounded-md border border-gray-300">
+                <option value="">-- Select Call --</option>
+                <option th:each="conv : ${listaConvocatoria}" th:value="${conv.idConvocatorias}" th:text="${conv.titulo}"></option>
+            </select>
+
+            <!-- Nombre de la startup -->
+            <label for="nombre" class="text-stone-900 font-bold">Startup Name</label>
+            <input id="nombre" name="nombre" type="text" th:field="*{nombre}" required class="p-2 rounded-md border border-gray-300"/>
+
+            <!-- Descripción -->
+            <label for="descripcion" class="text-stone-900 font-bold">Description</label>
+            <textarea id="descripcion" name="descripcion" th:field="*{descripcion}" rows="4" required class="p-2 rounded-md border border-gray-300"></textarea>
+
+            <!-- Sector del startup -->
+            <label for="sector" class="text-stone-900 font-bold">Startup Sector</label>
+            <input id="sector" name="sector" type="text" th:field="*{sector}" required class="p-2 rounded-md border border-gray-300"/>
+
+            <!-- foto del startup -->
+            <label for="logo" class="text-stone-900 font-bold">Photo</label>
+            <input type="file" id="logo" name="foto" accept="image/*" class="border-0">
+
+            <div class="flex justify-center mt-4">
+                <img id="preview" src="#" alt="Image preview"
+                     class="w-48 h-48 object-cover rounded-xl border-4 border-stone-300 shadow-xl bg-white/70 hidden">
+            </div>
+
+            <!-- Botón -->
+            <button type="submit"
+                    class="bg-amber-600 text-white py-3 px-4 rounded-md font-bold hover:opacity-70 transition-all">
+                Save Startup
+            </button>
+        </div>
+    </form>
+</div>
+
+<script>
+    const inputFoto = document.getElementById("logo");
+    const preview = document.getElementById("preview");
+    const maxSizeInMB = 2;
+    inputFoto.addEventListener("change", function () {
+        const file = this.files[0];
+        if (file && file.type.startsWith("image/") && file.size <= maxSizeInMB * 1024 * 1024) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                preview.src = e.target.result;
+                preview.classList.remove("hidden");
+            };
+            reader.readAsDataURL(file);
+        } else {
+            preview.src = "#";
+            preview.classList.add("hidden");
+        }
+    });
+</script>
+</body>
+</html>

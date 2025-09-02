@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/layout8::head}"></head>
+<body class="m-0 p-0 font-sans bg-[url('/images/estudiantes1.jpg')] bg-cover bg-center bg-fixed">
+<header th:replace="~{layout/layout8::header}"></header>
+<div class="max-w-md mx-auto mt-24 mb-12 bg-white/90 rounded-xl p-8 shadow-2xl">
+    <h1 class="text-center text-2xl font-bold text-gray-800 mb-4"
+        th:text="${usuario.idUsuario} == null ? 'Crear Nuevo Usuario' : 'Editar Usuario'">
+    </h1>
+
+    <form th:action="@{/crearUsuario}" method="post" th:object="${usuario}">
+        <div class="flex flex-col gap-4">
+
+            <label for="email" class="text-stone-900 font-bold">Email</label>
+            <input id="email" name="email" type="email" maxlength="150" th:field="*{email}" required
+                   class="p-2 rounded-md border border-gray-300"/>
+
+            <!-- Clave -->
+            <div class="flex flex-col relative">
+                <label for="clave" class="text-stone-900 font-bold">Clave</label>
+                <input id="clave" name="clave" type="password" maxlength="100" th:field="*{clave}" required
+                       class="p-2 rounded-md border border-gray-300"/>
+                <button type="button"
+                        onclick="togglePassword('clave', this)"
+                        class="absolute right-3 top-10 text-gray-600">
+                    <i class="fa-solid fa-eye-slash"></i>
+                </button>
+            </div>
+
+            <!-- Repetir clave -->
+            <div class="flex flex-col relative">
+                <label for="repetirClave" class="text-stone-900 font-bold">Repita la clave</label>
+                <input id="repetirClave" name="repetirClave" type="password" maxlength="100" required
+                       class="p-2 rounded-md border border-gray-300"/>
+                <button type="button"
+                        onclick="togglePassword('repetirClave', this)"
+                        class="absolute right-3 top-10 text-gray-600">
+                    <i class="fa-solid fa-eye-slash"></i>
+                </button>
+            </div>
+
+            <label for="apellidoUsuario" class="text-stone-900 font-bold">Apellido</label>
+            <input id="apellidoUsuario" name="apellidoUsuario" type="text" maxlength="40" th:field="*{apellidoUsuario}" required
+                   class="p-2 rounded-md border border-gray-300"/>
+
+            <label for="nombreUsuario" class="text-stone-900 font-bold">Nombre</label>
+            <input id="nombreUsuario" name="nombreUsuario" type="text" maxlength="40" th:field="*{nombreUsuario}" required
+                   class="p-2 rounded-md border border-gray-300"/>
+
+            <label for="ocupacion" class="text-stone-900 font-bold">Ocupación</label>
+            <input id="ocupacion" name="ocupacion" type="text" maxlength="60" th:field="*{ocupacion}" required
+                   class="p-2 rounded-md border border-gray-300"/>
+
+            <label for="telefono" class="text-stone-900 font-bold">Teléfono</label>
+            <input id="telefono" name="telefono" type="text" maxlength="60" th:field="*{telefono}" required
+                   class="p-2 rounded-md border border-gray-300"/>
+
+            <label for="ciudad" class="text-stone-900 font-bold">Ciudad</label>
+            <input id="ciudad" name="ciudad" type="text" maxlength="60" th:field="*{ciudad}" required
+                   class="p-2 rounded-md border border-gray-300"/>
+
+            <!-- Select de Roles -->
+            <label for="rol" class="text-stone-900 font-bold">Rol</label>
+            <select id="rol" name="rol" th:field="*{rol}" required
+                    class="p-2 rounded-md border border-gray-300">
+                <option value="" disabled
+                        th:selected="${usuario.rol == null}">Seleccione un rol</option>
+                <option th:each="rolItem : ${listaRoles}"
+                        th:value="${rolItem.id_rol}"
+                        th:text="${rolItem.rol}">
+                </option>
+            </select>
+
+            <button type="submit"
+                    class="bg-amber-600 text-white py-3 px-4 rounded-md font-bold hover:opacity-70 transition-all">
+                Guardar Usuario
+            </button>
+        </div>
+    </form>
+</div>
+
+<!-- Script para mostrar/ocultar contraseñas -->
+<script>
+    function togglePassword(inputId, button) {
+        const input = document.getElementById(inputId);
+        const icon = button.querySelector('i');
+        const isPwd = input.type === 'password';
+        input.type = isPwd ? 'text' : 'password';
+        icon.classList.toggle('fa-eye', !isPwd);
+        icon.classList.toggle('fa-eye-slash', isPwd);
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/layout8 :: head}"></head>
+<body class="m-0 p-0 font-sans bg-[url('/images/estudiantes1.jpg')] bg-cover bg-center bg-fixed">
+
+<header th:replace="~{layout/layout8 :: header}"></header>
+
+<div class="max-w-md mx-auto mt-24 mb-12 bg-white/90 rounded-xl p-8 shadow-2xl">
+
+    <h1 class="text-center text-2xl font-bold text-gray-800 mb-4">Editar Usuario</h1>
+
+    <form th:action="@{/modificarUsu/{id}(id=${usuarioEdit.idUsuario})}"
+          method="post" th:object="${usuarioEdit}">
+
+        <div class="flex flex-col gap-4">
+
+            <!-- Nombre -->
+            <label class="text-stone-900 font-bold" for="nombreUsuario">Nombre:</label>
+            <input type="text" id="nombreUsuario" name="nombreUsuario" th:field="*{nombreUsuario}" required
+                   class="p-2 rounded-md border border-gray-300"/>
+
+            <!-- Apellido -->
+            <label class="text-stone-900 font-bold" for="apellidoUsuario">Apellido:</label>
+            <input type="text" id="apellidoUsuario" name="apellidoUsuario" th:field="*{apellidoUsuario}" required
+                   class="p-2 rounded-md border border-gray-300"/>
+
+            <!-- Email -->
+            <label class="text-stone-900 font-bold" for="email">Correo Electrónico:</label>
+            <input type="email" id="email" name="email" th:field="*{email}" required
+                   class="p-2 rounded-md border border-gray-300"/>
+
+            <div class="flex flex-col relative">
+                <label for="clave" class="text-stone-900 font-bold">Clave</label>
+                <input id="clave" name="clave" type="password" maxlength="100" th:field="*{clave}" required
+                       class="p-2 rounded-md border border-gray-300"/>
+                <button type="button"
+                        onclick="togglePassword('clave', this)"
+                        class="absolute right-3 top-10 text-gray-600">
+                    <i class="fa-solid fa-eye-slash"></i>
+                </button>
+            </div>
+
+            <!-- Ocupación -->
+            <label class="text-stone-900 font-bold" for="ocupacion">Ocupación:</label>
+            <input type="text" id="ocupacion" name="ocupacion" th:field="*{ocupacion}" required
+                   class="p-2 rounded-md border border-gray-300"/>
+
+            <label class="text-stone-900 font-bold" for="telefono">Telefono:</label>
+            <input type="text" id="telefono" name="telefono" th:field="*{telefono}" required
+                   class="p-2 rounded-md border border-gray-300"/>
+
+            <label class="text-stone-900 font-bold" for="ciudad">Ciudad:</label>
+            <input type="text" id="ciudad" name="ciudad" th:field="*{ciudad}" required
+                   class="p-2 rounded-md border border-gray-300"/>
+
+            <!-- Rol -->
+            <label class="text-stone-900 font-bold" for="rol">Rol:</label>
+            <select id="rol" name="rol" th:field="*{rol.id_rol}"
+                    class="p-2 rounded-md border border-gray-300">
+                <option th:each="rol : ${listaRoles}"
+                        th:value="${rol.id_rol}"
+                        th:text="${rol.rol}">
+                </option>
+            </select>
+
+            <!-- Botón Guardar -->
+            <button type="submit"
+                    class="bg-amber-600 text-white py-3 px-4 rounded-md font-bold hover:opacity-70 transition-all">
+                Guardar Usuario
+            </button>
+
+        </div>
+
+    </form>
+
+</div>
+<!-- Script para mostrar/ocultar contraseñas -->
+<script>
+    function togglePassword(inputId, button) {
+        const input = document.getElementById(inputId);
+        const icon = button.querySelector('i');
+        const isPwd = input.type === 'password';
+        input.type = isPwd ? 'text' : 'password';
+        icon.classList.toggle('fa-eye', !isPwd);
+        icon.classList.toggle('fa-eye-slash', isPwd);
+    }
+</script>
+</body>
+</html>
